@@ -24,12 +24,12 @@ To clone a GitHub repository, follow these steps:
 
 7. **Confirm Clone**: After entering credentials (if required), Git will clone the repository to your local machine. Once the process is complete, you'll see a message indicating that the cloning was successful.
 
-. **Access the Cloned Repository**: You can now access the cloned repository in the directory you specified earlier. Use `cd` to navigate into the repository directory:
+8. **Access the Cloned Repository**: You can now access the cloned repository in the directory you specified earlier. Use `cd` to navigate into the repository directory:
 
 ```
 cd resapps-mini-project
 ```
 
-10. **Explore and review the codebase**: You now have a local copy of the repository on your machine. You can explore its contents as needed.
+9. **Explore and review the codebase**: You now have a local copy of the repository on your machine. You can explore its contents as needed.
 
 That's it! You've successfully cloned a GitHub repository to your local machine.
