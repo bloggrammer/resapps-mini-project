@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="WellTestAnalysis.App.Views.AnalysisView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WellTestAnalysis.App.Views"
+              xmlns:con="clr-namespace:WellTestAnalysis.App.Converters"
+               xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="bool2Vis"/>
+        <con:InverseBooleanToVisibilityConverter x:Key="inBool2Vis"/>
+    </UserControl.Resources>
+    <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border  CornerRadius="5"
+        BorderThickness="1" Padding="5" Margin="0 0 5 0"
+        BorderBrush="LightGray">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="15" Text="Test Info" HorizontalAlignment="Left"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+                        <Button Command="{Binding ClearTestInfoCommand}" Grid.Column="1" x:Name="clearImportBtn" Width="50" Cursor="Hand" Content="Clear" Margin="2 0 0 0" HorizontalAlignment="Right"/>
+                        <Button Command="{Binding ImportTestInfoCommand}" Grid.Column="1" x:Name="importBtn" Width="50" Cursor="Hand" Content="Import" Margin="2 0 0 0" HorizontalAlignment="Right"/>
+                    </StackPanel>
+
+                    <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="LightGray" Padding="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Well Name:" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1" Margin="5" Text="{Binding WellName, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
+                            <TextBlock Grid.Row="1" Text="Start Time:" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding StartTime, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Grid.Row="2" Text="End Time:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding EndTime, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Grid.Row="3" Text="Slope:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding Slope, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <Button Command="{Binding CalculateSlopeCommand}" Grid.Row="4" Grid.ColumnSpan="2" Content="Calculate Slope" Cursor="Hand" Margin="0 5"/>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+                <Grid  Grid.Row="1" Margin="0 20 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="2">
+                        <Button Command="{Binding Before24HrCommand}" Grid.Column="1" Width="100" Cursor="Hand" Content="Before 24hr" Margin="2 0 0 0" HorizontalAlignment="Right"/>
+                        <Button Command="{Binding TrendDataCommand}" Grid.Column="1" Width="100" Cursor="Hand" Content="Trend Data" Margin="2 0 0 0" HorizontalAlignment="Right"/>
+                    </StackPanel>
+
+                    <DataGrid  x:Name="before24"   CanUserAddRows="False" Visibility="{Binding ObservedDataloading,Converter={StaticResource inBool2Vis}}"
+                             Grid.Row="1" LoadingRow="Analysis_LoadingRow"
+                             AutoGenerateColumns="False" Grid.ColumnSpan="2"
+                             ItemsSource="{Binding Before24HrPressureData}"
+                              >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFE9B5" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#015874" />
+                        </DataGrid.Resources>
+
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Header="Smoothed Pressure (psi)" Binding="{Binding Pressure}" Width="Auto"/>
+                            <DataGridTextColumn Header="Time (hr)" Binding="{ Binding Time}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <DataGrid   x:Name="trend"   CanUserAddRows="False" Visibility="{Binding ObservedDataloading,Converter={StaticResource inBool2Vis}}"
+                          Grid.Row="1" LoadingRow="Trend_LoadingRow"
+                          AutoGenerateColumns="False" Grid.ColumnSpan="2"
+                          ItemsSource="{Binding TrendPressureData}"
+           >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFE9B5" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#015874" />
+                        </DataGrid.Resources>
+
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Header="Trended (psi)" Binding="{Binding Pressure}" Width="*"/>
+                            <DataGridTextColumn Header="Detrended (psi)" Binding="{Binding DetrendedPressure}" Width="*"/>
+                            <DataGridTextColumn Header="Time (hr)" Binding="{ Binding Time}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock Grid.ColumnSpan="2" Visibility="{Binding ObservedDataloading, Converter={StaticResource bool2Vis}}" FontSize="15" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Loading..."/>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Border  CornerRadius="5"
+     BorderThickness="0" Grid.Column="2" Padding="5"
+     BorderBrush="#FF21374D">
+            <Grid >
+                <oxy:PlotView x:Name="beforePlot"  Grid.Row="1" Model="{Binding Before24HrPlot}" Visibility="{Binding TrendBeforeTestVisible,Converter={StaticResource inBool2Vis}}"/>
+                <oxy:PlotView x:Name="trendPlot"  Grid.Row="1" Model="{Binding TrendPressureDataPlot}" Visibility="{Binding TrendBeforeTestVisible,Converter={StaticResource bool2Vis}}"/>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WellTestAnalysis.App.Data.Repository" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAAACAAAAAAAAAAAAAAAgAgAAAAAAAAA=</HashCode>
+      <FileName>Data\Repository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WellTestAnalysis.App.MainViewModel" Collapsed="true">
+    <Position X="3" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAAJAEDAEQxAhQISChSgAyJoqCAgAACBQAAJ0BEsC9A=</HashCode>
+      <FileName>ViewModels\AnalysisViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WellTestAnalysis.App.App" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WellTestAnalysis.App.IOService" Collapsed="true">
+    <Position X="0.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAgAAAACAAABACAAAAAACAAYAAAAGAAACAgAAAAAAA=</HashCode>
+      <FileName>IOService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WellTestAnalysis.App.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAABAAAAAAAiAEQABgIQAAAAAAAAEIAAAIAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WellTestAnalysis.App.ViewModelHelper" Collapsed="true">
+    <Position X="5.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>ViewModelHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WellTestAnalysis.App.Views.AnalysisView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AnalysisView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WellTestAnalysis.App.Views.DataImportView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\DataImportView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WellTestAnalysis.App.Views.SmoothDataView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Views\SmoothDataView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WellTestAnalysis.Dtos.Result">
+    <Position X="17.5" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WellTestAnalysis.Dtos.Result&lt;TResult&gt;">
+    <Position X="17.5" Y="6.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WellTestAnalysis.Dtos.ResultStatus&lt;TResult&gt;">
+    <Position X="15.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WellTestAnalysis.Models.AnalysisResult">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WellTestAnalysis.Models.PressureTimeData">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WellTestAnalysis.Models.PressureTimeTrend">
+    <Position X="11" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WellTestAnalysis.Models.TestInfo">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WellTestAnalysis.Services.WellTestAnalysisService" BaseTypeListCollapsed="true">
+    <Position X="11" Y="6.5" Width="3.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WellTestAnalysis.Utils.DataIO">
+    <Position X="13.25" Y="4.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="WellTestAnalysis.Utils.MathUtil">
+    <Position X="11" Y="4.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="WellTestAnalysis.Services.IWellTestAnalysisService">
+    <Position X="2" Y="5.25" Width="3.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2D9BB88D-5044-4835-8D9C-890F9DBA60EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FC1387E3-9742-4700-B299-80AF2CDA2647}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{B27905BB-AA78-4369-AD3C-ABEB85836421}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{488998D5-9CB2-40BA-B5AD-B8EA7A8F4E30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WellTestAnalysis.App", "src\app\WellTestAnalysis.App\WellTestAnalysis.App.csproj", "{45AE719E-008C-4543-A2E2-1D930676593D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WellTestAnalysis", "src\lib\WellTestAnalysis\WellTestAnalysis.csproj", "{15FA4A02-3946-4250-8B8D-F142A4439540}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45AE719E-008C-4543-A2E2-1D930676593D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45AE719E-008C-4543-A2E2-1D930676593D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45AE719E-008C-4543-A2E2-1D930676593D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45AE719E-008C-4543-A2E2-1D930676593D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15FA4A02-3946-4250-8B8D-F142A4439540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15FA4A02-3946-4250-8B8D-F142A4439540}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15FA4A02-3946-4250-8B8D-F142A4439540}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15FA4A02-3946-4250-8B8D-F142A4439540}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B27905BB-AA78-4369-AD3C-ABEB85836421} = {2D9BB88D-5044-4835-8D9C-890F9DBA60EF}
+		{488998D5-9CB2-40BA-B5AD-B8EA7A8F4E30} = {2D9BB88D-5044-4835-8D9C-890F9DBA60EF}
+		{45AE719E-008C-4543-A2E2-1D930676593D} = {B27905BB-AA78-4369-AD3C-ABEB85836421}
+		{15FA4A02-3946-4250-8B8D-F142A4439540} = {488998D5-9CB2-40BA-B5AD-B8EA7A8F4E30}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43D47535-519C-428B-8325-C8123FB22C18}
+	EndGlobalSection
+EndGlobal
