@@ -100,24 +100,21 @@ namespace WellTestAnalysis.App
             model.Axes.Add(xAxis);
             model.Axes.Add(yAxis);
 
-            var series1 = new LineSeries { MarkerType = MarkerType.Circle, Title = "Trended Pressure" };
+            var series1 = new LineSeries { MarkerType = MarkerType.Circle, Title = "Pressure" }; 
+            var series2 = new LineSeries { MarkerType = MarkerType.Square, Title = "Trended Pressure" };
+            var series3 = new LineSeries { MarkerType = MarkerType.Star, Title = "Detrended Pressure" };
+
             foreach (var x in pressureTimes)
             {
-                if (x.Time != null && x.Pressure != null)
-                    series1.Points.Add(new DataPoint(Convert.ToDouble(x.Time), Convert.ToDouble(x.Pressure)));
+                series1.Points.Add(new DataPoint(Convert.ToDouble(x.Time), Convert.ToDouble(x.Pressure)));
+                series2.Points.Add(new DataPoint(Convert.ToDouble(x.Time), Convert.ToDouble(x.TrendedPressure)));
+                series3.Points.Add(new DataPoint(Convert.ToDouble(x.Time), Convert.ToDouble(x.DetrendedPressure)));
 
             }
-            var series2 = new LineSeries { MarkerType = MarkerType.Square, Title = "Detrended Pressure" };
-            foreach (var x in pressureTimes)
-            {
-                if (x.Time != null && x.Pressure != null)
-                    series2.Points.Add(new DataPoint(Convert.ToDouble(x.Time), Convert.ToDouble(x.DetrendedPressure)));
-
-            }
-
-
+          
             model.Series.Add(series1);
             model.Series.Add(series2);
+            model.Series.Add(series3);
 
             return model;
         }

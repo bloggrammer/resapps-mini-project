@@ -1,35 +1,43 @@
 ﻿using WellTestAnalysis.Models;
 using WellTestAnalysis.Utils;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace WellTestAnalysis.Services
 {
     public class WellTestAnalysisService : IWellTestAnalysisService
     {
-        public IEnumerable<PressureTimeTrend> RunAnalysis(IEnumerable<PressureTimeData> observedData, float startTime, float endTime, float slope)
-        {
-            var (time, pressure) = ExtractPressureTimeRange(observedData, startTime, endTime);
-            double intercept = MathUtil.CalculateIntercept(time, pressure, slope);
+        public IEnumerable<PressureTimeTrend> RunAnalysis(IList<PressureTimeData> observedData, float startTime, float slope, bool usePi)
+        {        
+
+            double intercept = GetIntercept(observedData, startTime, slope, usePi);
 
             foreach (var data in observedData)
             {
-                if (data.Time >= startTime && data.Time <= endTime)
+                if (data.Time < startTime)
                 {
                     double? trendPressure = MathUtil.CalculateLinearTrend(data.Time, slope, intercept);
                     double? detrendedPressure = MathUtil.CalculateDetrendedData(data.Pressure, trendPressure);
 
-                    if (detrendedPressure > 0)
-                        yield return new PressureTimeTrend(data.Time, MathUtil.Round(trendPressure), MathUtil.Round(detrendedPressure));
+                    yield return new PressureTimeTrend(MathUtil.Round(data.Time), MathUtil.Round(data.Pressure), MathUtil.Round(detrendedPressure), MathUtil.Round(trendPressure));
                 }
             }
         }
-        public double GetSlope(IEnumerable<PressureTimeData> observedData, float startTime, float endTime)
-        {
-            var (time, pressure) = ExtractPressureTimeRange(observedData, startTime, endTime);
-            var tuple = MathUtil.CalculateSlope(time, pressure); ;
 
-            return tuple.slope;
+        private double GetIntercept(IList<PressureTimeData> observedData, float startTime, float slope, bool usePi)
+        {
+           if(usePi)
+                return Convert.ToDouble(observedData[0].Pressure);
+
+            var (time, pressure) = ExtractPressureTimeSeries(observedData, startTime);
+           return MathUtil.CalculateIntercept(time, pressure, slope);
         }
-      
+
+        public (double slope, double intercept) GetSlopeAndIntercept(IEnumerable<PressureTimeData> observedData, float startTime)
+        {
+            var (time, pressure) = ExtractPressureTimeSeries(observedData, startTime);
+
+            return MathUtil.CalculateSlope(time, pressure);
+        }
         public List<PressureTimeData> GetObservationDataStartingFromTimeBeforeTest(IEnumerable<PressureTimeData> observationDataList, double startTime, float timeBefore = 24.0f)
         {
             double startTime24HoursBefore = startTime - timeBefore;
@@ -53,42 +61,24 @@ namespace WellTestAnalysis.Services
                     yield return observation;
                 }
             }
-            //smoothedSeries.Add(observeData[0]); // Add the first data point as it's always included
-
-            //for (int i = 1; i < observations.Count; i++)
-            //{
-            //    var previousPressure = smoothedSeries[smoothedSeries.Count - 1].Pressure;
-            //    var currentPressure = observations[i].Pressure;
-
-            //    if (IsPressureSmoothable(currentPressure, previousPressure, smootheningFactor))
-            //    {
-            //        smoothedSeries.Add(observations[i]);
-            //    }
-            //}
-            //  return ResultStatus<List<PressureTimeData>>.Pass(smoothedSeries);
         }
-        /// <summary>
-        /// Get pressure vs time based on a specific time range
-        /// </summary>
-        /// <param name="observedData"></param>
-        /// <param name="startTime"></param>
-        /// <param name="endTime"></param>
-        /// <returns>time, pressue</returns>
-        private static (double[] time, double[] pressure) ExtractPressureTimeRange(IEnumerable<PressureTimeData> observedData, float startTime, float endTime)
+        private static bool IsValidObservation(float startTime, PressureTimeData x)
         {
-            var pressure = observedData.Where(x => x.Time >= startTime && x.Time <= endTime).Select(x => Convert.ToDouble(x.Pressure)).ToArray();
-
-            var time = observedData.Where(x => x.Time >= startTime && x.Time <= endTime).Select(x => Convert.ToDouble(x.Time)).ToArray();
-
-            return (time, pressure);
-
+            return x.Time < startTime && x.Pressure != null && x.Time != null;
         }
+
         private bool IsPressureSmoothable(double? currentPressure, double? previousPressure, double smootheningFactor)
         {
             if (currentPressure == null) return false;
 
             return Math.Abs(Convert.ToDouble(currentPressure) - Convert.ToDouble(previousPressure)) >= smootheningFactor;
         }
+        private (double[] time, double[] pressure) ExtractPressureTimeSeries(IEnumerable<PressureTimeData> observedData, float startTime)
+        {
+            var time = observedData.Where(x => IsValidObservation(startTime, x)).Select(x => Convert.ToDouble(x.Time)).ToArray();
+            var pressure = observedData.Where(x => IsValidObservation(startTime, x)).Select(x => Convert.ToDouble(x.Pressure)).ToArray();
 
+            return (time, pressure);
+        }
     }
 }

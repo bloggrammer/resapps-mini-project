@@ -46,7 +46,7 @@ namespace WellTestAnalysis.App
                 float start = float.Parse(StartTime);
                 float end = float.Parse(EndTime);
                 float slope = float.Parse(Slope);
-                var data = _service.RunAnalysis(SmoothedPressureData, start, end, slope);
+                var data = _service.RunAnalysis(SmoothedPressureData, start, slope, UsePI);
                 TrendPressureData = new ObservableCollection<PressureTimeTrend>(data);
                 TrendPressureDataPlot =  ViewModelHelper.PlotModel(TrendPressureData, "Trend and Detrended Data");
                 TrendBeforeTestVisible = true;
@@ -101,14 +101,24 @@ namespace WellTestAnalysis.App
             }
             try
             {
-                float start = float.Parse(StartTime);
-                float end = float.Parse(EndTime);
-                Slope = _service.GetSlope(SmoothedPressureData, start, end).ToString();
+                SetSlop(true);
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.Message, "Import Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void SetSlop(bool updateSlope)
+        {
+            float start = float.Parse(StartTime);
+            var tuple = _service.GetSlopeAndIntercept(SmoothedPressureData, start);
+            Intercept = tuple.intercept.ToString();
+            
+            if (updateSlope)
+            {
+                Slope = tuple.slope.ToString();
             }
         }
 
@@ -140,6 +150,29 @@ namespace WellTestAnalysis.App
             get { return trendBeforeTestVisible; }
             set { trendBeforeTestVisible = value; RaisePropertyChanged(); }
         }
+
+        private bool usePI;
+
+        public bool UsePI
+        {
+            get { return usePI; }
+            set { usePI = value;
+                if (value)
+                    Intercept = SmoothedPressureData.Count > 0 ? SmoothedPressureData[0].Pressure?.ToString() : string.Empty;
+                else
+                    SetSlop(false);
+                RaisePropertyChanged();
+            }
+        }
+
+        private string intercept;
+
+        public string Intercept
+        {
+            get { return intercept; }
+            set { intercept = value; RaisePropertyChanged(); }
+        }
+
 
         private PlotModel before24HrPlot;
         [XmlIgnore]

@@ -5,9 +5,9 @@ namespace WellTestAnalysis.Services
 {
     public interface IWellTestAnalysisService
     {
-        IEnumerable<PressureTimeTrend> RunAnalysis(IEnumerable<PressureTimeData> observedData, float startTime, float endTime, float slope);
+        IEnumerable<PressureTimeTrend> RunAnalysis(IList<PressureTimeData> observedData, float startTime, float slope, bool usePi);
         IEnumerable<PressureTimeData> SmoothObservedPressure(IEnumerable<PressureTimeData> observeData, float smootheningFactor = 0.5f);
         List<PressureTimeData> GetObservationDataStartingFromTimeBeforeTest(IEnumerable<PressureTimeData> observationDataList, double startTime, float timeBefore = 24.0f);
-        double GetSlope(IEnumerable<PressureTimeData> observedData, float startTime, float endTime);
+        (double slope, double intercept) GetSlopeAndIntercept(IEnumerable<PressureTimeData> observedData, float startTime);
     }
 }

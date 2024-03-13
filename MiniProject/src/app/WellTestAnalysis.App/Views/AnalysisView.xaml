@@ -14,8 +14,8 @@
     </UserControl.Resources>
     <Grid Grid.Row="1">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
 
         <Border  CornerRadius="5"
@@ -37,13 +37,14 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock FontSize="15" Text="Test Info" HorizontalAlignment="Left"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
-                        <Button Command="{Binding ClearTestInfoCommand}" Grid.Column="1" x:Name="clearImportBtn" Width="50" Cursor="Hand" Content="Clear" Margin="2 0 0 0" HorizontalAlignment="Right"/>
+                       <Button Command="{Binding ClearTestInfoCommand}" Grid.Column="1" x:Name="clearImportBtn" Width="50" Cursor="Hand" Content="Clear" Margin="2 0 0 0" HorizontalAlignment="Right"/>
                         <Button Command="{Binding ImportTestInfoCommand}" Grid.Column="1" x:Name="importBtn" Width="50" Cursor="Hand" Content="Import" Margin="2 0 0 0" HorizontalAlignment="Right"/>
                     </StackPanel>
 
                     <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="LightGray" Padding="5">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -62,8 +63,10 @@
                             <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding EndTime, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock Grid.Row="3" Text="Slope:" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding Slope, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Grid.Row="4" Text="Intercept:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding Intercept, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
 
-                            <Button Command="{Binding CalculateSlopeCommand}" Grid.Row="4" Grid.ColumnSpan="2" Content="Calculate Slope" Cursor="Hand" Margin="0 5"/>
+                            <Button Command="{Binding CalculateSlopeCommand}" Grid.Row="5" Grid.ColumnSpan="2" Content="Calculate Slope" Cursor="Hand" Margin="0 5"/>
                         </Grid>
                     </Border>
 
@@ -77,6 +80,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
+                    <CheckBox IsChecked="{Binding UsePI, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Width="100" Cursor="Hand" Content="Use Pi" Margin="2 0 0 0" HorizontalAlignment="Left"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="2">
                         <Button Command="{Binding Before24HrCommand}" Grid.Column="1" Width="100" Cursor="Hand" Content="Before 24hr" Margin="2 0 0 0" HorizontalAlignment="Right"/>
                         <Button Command="{Binding TrendDataCommand}" Grid.Column="1" Width="100" Cursor="Hand" Content="Trend Data" Margin="2 0 0 0" HorizontalAlignment="Right"/>
@@ -111,7 +115,8 @@
 
 
                         <DataGrid.Columns >
-                            <DataGridTextColumn Header="Trended (psi)" Binding="{Binding Pressure}" Width="*"/>
+                            <DataGridTextColumn Header="Pressure (psi)" Binding="{Binding Pressure}" Width="*"/>
+                            <DataGridTextColumn Header="Trended (psi)" Binding="{Binding TrendedPressure}" Width="*"/>
                             <DataGridTextColumn Header="Detrended (psi)" Binding="{Binding DetrendedPressure}" Width="*"/>
                             <DataGridTextColumn Header="Time (hr)" Binding="{ Binding Time}" Width="*"/>
                         </DataGrid.Columns>

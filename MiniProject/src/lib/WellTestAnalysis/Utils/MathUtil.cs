@@ -65,12 +65,12 @@
         }
         public static double? CalculateDetrendedData(double? smoothedPressure, double? linearTrendPressure)
         {
-            return smoothedPressure - linearTrendPressure;
+            return Math.Abs((double)(smoothedPressure - linearTrendPressure));
         }
         public static double? Round(double? value)
         {
             if(value == null) return null;
-            return Math.Round(Convert.ToDouble(value), 6);
+            return Math.Round(Convert.ToDouble(value), 2);
         }
     }
 }
